@@ -1,0 +1,42 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="UTF-8"/>
+    <title>Phone Book</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css"/>
+</head>
+
+<body>
+<h1>Contact List</h1>
+<div>
+    <nobr>
+        <a href="/mvc/contacts/add">Add User</a> |
+        <a href="/">Back to Home Page</a>
+    </nobr>
+</div>
+<br/><br/>
+<div>
+    <table border="1">
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Edit</th>
+        </tr>
+        {{#contacts}}
+            <tr>
+                <td>{{id}}</td>
+                <td>{{name}}</td>
+                <td>{{email}}</td>
+                <td>{{#phoneNumber}}{{phoneNumber}}{{/phoneNumber}}</td>
+                <td><a href="/mvc/contacts/{{id}}">Edit</a></td>
+            </tr>
+        {{/contacts}}
+    </table>
+</div>
+<br/><br/>
+{{>footer}}
+</body>
+</html>
