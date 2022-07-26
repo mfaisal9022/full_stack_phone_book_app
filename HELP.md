@@ -20,3 +20,14 @@ The following guides illustrate how to use some features concretely:
 * [Serving Web Content with Spring MVC](https://spring.io/guides/gs/serving-web-content/)
 * [Building REST services with Spring](https://spring.io/guides/tutorials/rest/)
 
+
+FROM node
+WORKDIR /app
+COPY src/main/webapp/phone_book_react_ui/package.json .
+RUN npm install
+COPY src/main/webapp/phone_book_react_ui .
+EXPOSE 3000
+CMD ["npm","start"]
+
+for containerizing react app.
+

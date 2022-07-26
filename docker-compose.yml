@@ -3,7 +3,7 @@ services:
   db:
     image: postgres
     restart: always
-    container_name: phone_app_db
+    container_name: java_react_app_db
     environment:
       - POSTGRES_USER=faisal
       - POSTGRES_PASSWORD=test123
@@ -11,18 +11,13 @@ services:
       - '5432:5432'
     volumes:
       - db-data:/var/lib/postgresql/data
-  react_spring_image:
-    image: react_spring_image:latest
-    container_name: react_app
-    ports:
-      - '3000:3000'
-  phone_book_application:
-    image: phone_app:latest
+  java_react_app:
+    image: java_react_app:latest
     build:
       context: .
     links:
       - "db:db"
-    container_name: phone_book_app
+    container_name: java_react_app_container
     depends_on:
       - db
     environment:
