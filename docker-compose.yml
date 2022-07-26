@@ -11,6 +11,11 @@ services:
       - '5432:5432'
     volumes:
       - db-data:/var/lib/postgresql/data
+  react_spring_image:
+    image: react_spring_image:latest
+    container_name: react_app
+    ports:
+      - '3000:3000'
   phone_book_application:
     image: phone_app:latest
     build:
