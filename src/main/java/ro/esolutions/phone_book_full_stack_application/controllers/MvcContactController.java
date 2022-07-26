@@ -20,7 +20,7 @@ public class MvcContactController {
     private ContactService contactService;
 
     @Value("${msg.title}")
-    private String title = "";
+    private String title;
 
     @GetMapping(value = {"/", "/index"})
     public String index(Model model) {
@@ -28,7 +28,6 @@ public class MvcContactController {
 
         return "index";
     }
-
 
     @GetMapping(value = "/mvc/contacts")
     public String getUsers(Model model) {

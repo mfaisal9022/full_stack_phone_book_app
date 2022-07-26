@@ -1,0 +1,32 @@
+version: '3.8'
+services:
+  db:
+    image: postgres
+    restart: always
+    container_name: phone_app_db
+    environment:
+      - POSTGRES_USER=faisal
+      - POSTGRES_PASSWORD=test123
+    ports:
+      - '5432:5432'
+    volumes:
+      - db-data:/var/lib/postgresql/data
+  phone_book_application:
+    image: phone_app:latest
+    build:
+      context: .
+    links:
+      - "db:db"
+    container_name: phone_book_app
+    depends_on:
+      - db
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/contactdb
+      - SPRING_DATASOURCE_USERNAME=faisal
+      - SPRING_DATASOURCE_PASSWORD=test123
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+    ports:
+      - '8080:8080'
+volumes:
+  db-data:
+    driver: local

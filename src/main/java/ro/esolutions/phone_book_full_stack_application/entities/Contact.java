@@ -11,6 +11,8 @@ import javax.persistence.Id;
 @Getter
 @Setter
 @NoArgsConstructor
+@RequiredArgsConstructor
+@ToString
 public class Contact {
 
     @Id
@@ -27,4 +29,11 @@ public class Contact {
     private String phoneNumber;
 
     private String role;//developer, project manager, architect, devOps, sales
+
+    public Contact(String name, String email,String phoneNumber,String role){
+        setEmail(email);
+        setName(name);
+        setRole(role);
+        setPhoneNumber(phoneNumber);
+    }
 }

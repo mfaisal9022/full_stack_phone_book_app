@@ -38,6 +38,7 @@ public class RestApiContactController {
     @GetMapping(value = "/{contactId}")
     public Contact getContactById(@PathVariable int contactId) {
         log.info("Received a Get contact by id request with the contact id : "+ contactId);
+
         return contactService.getContactById(contactId);
     }
 
@@ -53,15 +54,19 @@ public class RestApiContactController {
         return contactService.saveContacts(contact);
     }
 
-    @PutMapping(value = {"/update"})
-    public UpdateContactDto updateContact(@RequestBody Contact contact) {
+    @PutMapping(value = {"/update/{contactId}"})
+    public UpdateContactDto updateContact(@RequestBody Contact contact,@PathVariable int contactId) {
         log.info("Receive a PUt/Update Request with the following JSON Data : "+ contact.toString());
+
+        contact.setId(contactId);
         return contactService.updateContact(contact);
     }
 
     @DeleteMapping(value = {"/delete/{contactId}"})
     public String deleteContactById(@PathVariable int contactId) {
+
         log.info("Receive a Delete Request with the following JSON Data : "+ contactId);
+
         return contactService.deleteContact(contactId);
     }
 }

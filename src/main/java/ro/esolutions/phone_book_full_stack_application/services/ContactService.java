@@ -12,6 +12,7 @@ import ro.esolutions.phone_book_full_stack_application.dto.UpdateContactDto;
 import ro.esolutions.phone_book_full_stack_application.entities.Contact;
 import ro.esolutions.phone_book_full_stack_application.repositories.ContactRepository;
 
+import java.sql.PreparedStatement;
 import java.util.List;
 
 @Service
@@ -41,8 +42,11 @@ public class ContactService {
 
 
     public String deleteContact(int id) {
-        repository.deleteById(id);
-        return "Contact Removed having Id : " + id;
+        if(getContactById(id) != null){
+            repository.deleteById(id);
+            return "Contact Removed having Id : " + id;
+        }
+        return null;
     }
 
     public Page<Contact> findAllContactsByPageNumber(int pageNumber,int pageSize){
