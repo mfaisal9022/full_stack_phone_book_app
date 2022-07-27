@@ -14,6 +14,7 @@ import java.util.List;
 
 @Controller
 @Slf4j
+@RequestMapping("/mvc")
 public class MvcContactController {
 
     @Autowired
@@ -22,14 +23,14 @@ public class MvcContactController {
     @Value("${msg.title}")
     private String title;
 
-    @GetMapping(value = {"/", "/index"})
+    @GetMapping
     public String index(Model model) {
         model.addAttribute("title",title);
 
         return "index";
     }
 
-    @GetMapping(value = "/mvc/contacts")
+    @GetMapping(value = "/contacts")
     public String getUsers(Model model) {
         List<Contact> allContacts = contactService.getContacts();
 
@@ -38,7 +39,7 @@ public class MvcContactController {
         return "contact-list";
     }
 
-    @GetMapping(value = "/mvc/contacts/{contactId}")
+    @GetMapping(value = "/contacts/{contactId}")
     public String getContactById(Model model, @PathVariable int contactId) {
         Contact contact = null;
         try{
@@ -56,7 +57,7 @@ public class MvcContactController {
         return "contact";
     }
 
-    @GetMapping(value = {"/mvc/contacts/add"})
+    @GetMapping(value = {"/contacts/add"})
     public String showAddContact(Model model) {
 
         Contact contact = new Contact();
@@ -66,7 +67,7 @@ public class MvcContactController {
         return "edit-contact";
     }
 
-    @PostMapping(value = "/mvc/contacts/add")
+    @PostMapping(value = "/contacts/add")
     public String addContact(Model model, @ModelAttribute("contact") Contact contact) {
         try {
             AddContactDto newContact = contactService.saveContact(contact);
@@ -79,7 +80,7 @@ public class MvcContactController {
         }
     }
 
-    @GetMapping(value = {"/mvc/contacts/{contactId}/update"})
+    @GetMapping(value = {"/contacts/{contactId}/update"})
     public String showEditContact(Model model, @PathVariable int contactId) {
         Contact contact = null;
         try {
@@ -92,7 +93,7 @@ public class MvcContactController {
         return "edit-contact";
     }
 
-    @PostMapping(value = {"/mvc/contacts/{contactId}/update"})
+    @PostMapping(value = {"/contacts/{contactId}/update"})
     public String updateContact(Model model, @PathVariable int contactId, @ModelAttribute("contact") Contact contact) {
         System.out.println(contactId + " - "+ contact.toString());
         try {
@@ -111,7 +112,7 @@ public class MvcContactController {
         }
     }
 
-    @GetMapping(value = {"/mvc/contacts/{contactId}/delete"})
+    @GetMapping(value = {"/contacts/{contactId}/delete"})
     public String showDeleteUser(Model model, @PathVariable int contactId) {
 
         Contact contact = null;
@@ -126,7 +127,7 @@ public class MvcContactController {
         return "contact";
     }
 
-    @PostMapping(value = {"/mvc/contacts/{contactId}/delete"})
+    @PostMapping(value = {"/contacts/{contactId}/delete"})
     public String deleteContactById(
             Model model, @PathVariable int contactId) {
         try {
