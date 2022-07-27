@@ -2,7 +2,6 @@ package ro.esolutions.phone_book_full_stack_application.services;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -12,7 +11,6 @@ import ro.esolutions.phone_book_full_stack_application.dto.UpdateContactDto;
 import ro.esolutions.phone_book_full_stack_application.entities.Contact;
 import ro.esolutions.phone_book_full_stack_application.repositories.ContactRepository;
 
-import java.sql.PreparedStatement;
 import java.util.List;
 
 @Service
