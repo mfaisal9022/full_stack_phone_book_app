@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+        const getRedirectURL = () => {
+            const contactList = document.querySelector('#contactList');
+            document.getElementById("addAddressForm").action = "/mvc/contacts/"+contactList.options[contactList.selectedIndex].id+"/addAddress";
+        }
+    </script>
+</head>
+
+<body>
+
+<h2>{{#addAddress}}Add Address to a Contact{{/addAddress}}{{^addAddress}}Update Address of a Contact{{/addAddress}}</h2>
+<a href="/mvc/contacts">Back to Contact List</a>
+{{#address}}
+<form id="addAddressForm" onsubmit="getRedirectURL()" method="post">
+    {{#addAddress}}
+    <div>
+        <label for="contactList">Select Contact :</label>
+        <select name="contactList" id="contactList">
+            {{#allContacts}}
+                <option id="{{#id}}{{id}}{{/id}}" value="{{#name}}{{name}}{{/name}}">{{#name}}{{name}}{{/name}}</option>
+            {{/allContacts}}
+
+        </select>
+    </div>
+    {{/addAddress}}
+
+
+    <table>
+        {{^addAddress}}
+            <tr>
+                <td>Id</td>
+                <td>:</td>
+                <td>{{#id}}{{id}}{{/id}}</td>
+            </tr>
+        {{/addAddress}}
+
+        <tr>
+            <td>Street Address</td>
+            <td>:</td>
+            <td><input id="streetAddress" type="text" name="streetAddress" value="{{#streetAddress}}{{streetAddress}}{{/streetAddress}}" /></td>
+        </tr>
+
+        <tr>
+            <td>City</td>
+            <td>:</td>
+            <td><input id="city" type="text" name="city" value="{{#city}}{{city}}{{/city}}" /></td>
+        </tr>
+
+        <tr>
+            <td>State</td>
+            <td>:</td>
+            <td><input id="state" type="text" name="state" value="{{#state}}{{state}}{{/state}}" /></td>
+        </tr>
+
+        <tr>
+            <td>Zip</td>
+            <td>:</td>
+            <td><input id="zipCode" type="text" name="zipCode" value="{{#zipCode}}{{zipCode}}{{/zipCode}}" /></td>
+        </tr>
+    </table>
+
+    <input type="submit" value="{{#addAddress}}Add Address{{/addAddress}}{{^addAddress}}Update Address{{/addAddress}}"/>
+</form>
+{{/address}}
+</body>
+</html>

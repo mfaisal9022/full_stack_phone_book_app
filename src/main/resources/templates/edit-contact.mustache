@@ -6,12 +6,16 @@
     <link rel="stylesheet" type="text/css" href="/css/style.css"/>
 </head>
 <body>
+
 <h1>{{#add}}Create new Contact:{{/add}}{{^add}}Edit Contact:{{/add}}</h1>
+
 <a href="/mvc/contacts">Back to Contact List</a>
+
 <br/><br/>
+
 {{#contact}}
-    <form action="{{#add}}/mvc/contacts/add{{/add}}{{^add}}/mvc/contacts/{{id}}/update{{/add}}" name="contact" method="POST">
-        <table border="0">
+    <form method="post" action="{{#add}}/mvc/contacts/add{{/add}}{{^add}}/mvc/contacts/{{id}}/update{{/add}}">
+        <table id="table">
             {{#id}}
                 <tr>
                     <td>ID</td>
@@ -22,26 +26,29 @@
             <tr>
                 <td>Name</td>
                 <td>:</td>
-                <td><input type="text" name="name" value="{{#name}}{{name}}{{/name}}" /></td>
+                <td><input id="name" type="text" name="name" value="{{#name}}{{name}}{{/name}}"/></td>
             </tr>
             <tr>
                 <td>Email</td>
                 <td>:</td>
-                <td><input type="text" name="email" value="{{#email}}{{email}}{{/email}}" /></td>
+                <td><input id="email" type="text" name="email" value="{{#email}}{{email}}{{/email}}"/></td>
             </tr>
             <tr>
                 <td>Phone</td>
                 <td>:</td>
-                <td><input type="text" name="phoneNumber" value="{{#phoneNumber}}{{phoneNumber}}{{/phoneNumber}}" /></td>
+                <td><input id="phoneNumber" type="text" name="phoneNumber" value="{{#phoneNumber}}{{phoneNumber}}{{/phoneNumber}}" /></td>
             </tr>
+
         </table>
-        <input type="submit" value="{{#add}}Create{{/add}}{{^add}}Update{{/add}}" />
+        <input type="submit" value="{{#add}}Create{{/add}}{{^add}}Update Contact{{/add}}"/>
     </form>
 {{/contact}}
 
 <br/>
-<!-- Check if errorMessage is not null and not empty -->
+
 <div class="error">{{#errorMessage}}{{errorMessage}}{{/errorMessage}}</div>
 {{>footer}}
 </body>
 </html>
+
+

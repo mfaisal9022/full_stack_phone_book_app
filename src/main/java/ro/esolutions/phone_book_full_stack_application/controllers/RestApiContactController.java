@@ -3,9 +3,13 @@ package ro.esolutions.phone_book_full_stack_application.controllers;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ro.esolutions.phone_book_full_stack_application.dto.AddContactDto;
-import ro.esolutions.phone_book_full_stack_application.dto.UpdateContactDto;
+import ro.esolutions.phone_book_full_stack_application.dto.AddressDto;
+import ro.esolutions.phone_book_full_stack_application.dto.requestDto.ContactRequestDto;
+import ro.esolutions.phone_book_full_stack_application.dto.responseDto.ContactAddressResponseDto;
+import ro.esolutions.phone_book_full_stack_application.dto.responseDto.ContactResponseDto;
 import ro.esolutions.phone_book_full_stack_application.entities.Contact;
 import ro.esolutions.phone_book_full_stack_application.services.ContactService;
 
@@ -36,26 +40,26 @@ public class RestApiContactController {
     }
 
     @GetMapping(value = "/{contactId}")
-    public Contact getContactById(@PathVariable int contactId) {
+    public ContactAddressResponseDto getContactById(@PathVariable int contactId) {
         log.info("Received a Get contact by id request with the contact id : "+ contactId);
 
         return contactService.getContactById(contactId);
     }
 
     @PostMapping(value = "/add")
-    public AddContactDto addContact(@RequestBody Contact contact) {
-        log.info("Receive a Post Request with the following JSON Data : "+ contact.toString());
-        return contactService.saveContact(contact);
+    public ContactResponseDto addContact(@RequestBody ContactRequestDto contactRequestDto) {
+        log.info("Receive a Post Request with the following JSON Data : "+ contactRequestDto.toString());
+        return contactService.saveContact(contactRequestDto);
     }
 
     @PostMapping(value = "/addAllContacts")
-    public List<Contact> addContact(@RequestBody List<Contact> contact) {
+    public List<ContactResponseDto> addContact(@RequestBody List<ContactRequestDto> contact) {
         log.info("Receive a Post Request with the following JSON Data : "+ contact.toString());
         return contactService.saveContacts(contact);
     }
 
     @PutMapping(value = {"/update/{contactId}"})
-    public UpdateContactDto updateContact(@RequestBody Contact contact,@PathVariable int contactId) {
+    public ContactResponseDto updateContact(@RequestBody ContactRequestDto contact,@PathVariable int contactId) {
         log.info("Receive a PUt/Update Request with the following JSON Data : "+ contact.toString());
 
         contact.setId(contactId);
@@ -69,4 +73,21 @@ public class RestApiContactController {
 
         return contactService.deleteContact(contactId);
     }
+
+    @GetMapping(value = "/{id}/addresses")
+    public ResponseEntity<List<AddressDto>> getAllAddressesOfaContact(@PathVariable int id){
+        return new ResponseEntity<>(contactService.getAllAddressListFromaContact(id),HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/{id}/address")
+    public ResponseEntity<AddressDto> createNewAddressInsideAContact(@PathVariable int id, @RequestBody AddressDto address){
+
+        return new ResponseEntity<>(contactService.createNewAddressForaContact(id,address),HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/allContacts")
+    public ResponseEntity<List<ContactAddressResponseDto>> getAllContacts(){
+        return new ResponseEntity<>(contactService.getAllContacts(),HttpStatus.OK);
+    }
+
 }

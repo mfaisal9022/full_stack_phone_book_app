@@ -4,6 +4,19 @@
     <meta charset="UTF-8" />
     <title>Contact Details</title>
     <link rel="stylesheet" type="text/css" href="/css/style.css"/>
+    <script>
+        const updateAddress = (addressId) =>{
+            window.location.href = "/mvc/contacts/"+addressId+"/updateAddress";
+        }
+
+        const updateContact = (contactId)=>{
+            window.location.href = "/mvc/contacts/"+contactId+"/update";
+        }
+
+        const deleteAddress = (addressId) =>{
+            window.location.href = "/mvc/contacts/"+addressId+"/deleteAddress";
+        }
+    </script>
 </head>
 <body>
 
@@ -17,35 +30,85 @@
         <tr>
             <td>ID</td>
             <td>:</td>
-            <td>{{id}}</td>
+            <td>{{#id}}{{id}}{{/id}}</td>
         </tr>
         <tr>
             <td>Name</td>
             <td>:</td>
-            <td>{{name}}</td>
+            <td>{{#name}}{{name}}{{/name}}</td>
         </tr>
         <tr>
             <td>Email</td>
             <td>:</td>
-            <td>{{email}}</td>
+            <td>{{#email}}{{email}}{{/email}}</td>
         </tr>
         <tr>
             <td>Phone</td>
             <td>:</td>
             <td>{{#phoneNumber}}{{phoneNumber}}{{/phoneNumber}}</td>
         </tr>
+
+        <tr>
+            <td><button onclick="updateContact({{id}})">Update Contact</button></td>
+        </tr>
+
+        <tr>
+            <td>
+                <hr>
+            </td>
+            <td>
+                Contact Addresses
+            </td>
+            <td>
+                <hr>
+            </td>
+        </tr>
+        {{#addressList}}
+            <tr>
+                <td>Street Address</td>
+                <td>:</td>
+                <td>{{#streetAddress}}{{streetAddress}}{{/streetAddress}}</td>
+            </tr>
+
+            <tr>
+                <td>City</td>
+                <td>:</td>
+                <td>{{#city}}{{city}}{{/city}}</td>
+            </tr>
+
+            <tr>
+                <td>State</td>
+                <td>:</td>
+                <td>{{#state}}{{state}}{{/state}}</td>
+            </tr>
+
+            <tr>
+                <td>Zip</td>
+                <td>:</td>
+                <td>{{#zipCode}}{{zipCode}}{{/zipCode}}</td>
+            </tr>
+            <tr>
+                <td><button onclick="updateAddress({{id}})">Update Address</button></td>
+                <td><button onclick="deleteAddress({{id}})">Delete Address</button></td>
+            </tr>
+            <tr>
+                <td><hr></td>
+                <td><hr></td>
+                <td><hr></td>
+            </tr>
+        {{/addressList}}
+
     </table>
     <br/><br/>
     {{#allowDelete}}
         <form action="/mvc/contacts/{{id}}/delete" method="POST">
-            Delete this user? <input type="submit" value="Yes" />
+            Delete this Contact including all it's addresses? <input type="submit" value="Yes" />
         </form>
     {{/allowDelete}}
 
     {{^allowDelete}}
         <div>
-            <a href="/mvc/contacts/{{id}}/update">Update</a> |
-            <a href="/mvc/contacts/{{id}}/delete">Delete</a>
+            <a href="/mvc/contacts/{{id}}/delete">Delete this contacts including all it's addresses</a>
         </div>
     {{/allowDelete}}
 {{/contact}}
@@ -53,6 +116,9 @@
 {{#errorMessage}}
     <div class="error">{{errorMessage}}</div>
 {{/errorMessage}}
+
+
+
 {{>footer}}
 </body>
 </html>

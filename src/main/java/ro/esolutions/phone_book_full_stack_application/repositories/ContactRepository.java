@@ -12,4 +12,6 @@ import java.util.List;
 public interface ContactRepository extends JpaRepository<Contact, Integer> {
     Page<Contact> findByRoleIn(List<String> roles, Pageable pageable);
     Contact findByName(String contact);
+
+    List<Contact> findAllByAppUserId(int userId);
 }
