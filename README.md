@@ -9,6 +9,7 @@
 * Spring MVC
 * Spring Security
 * Mustache
+* React.js
 
 # Application Features
 * Login
